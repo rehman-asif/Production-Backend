@@ -17,7 +17,7 @@ const uploadOnCloudinary=async(localFilePath)=>{
         })
         console.log("Response clouninary file upload ",response.url);
         // FILE  has been uploaded successfully
-        console.log("File is uploaded on cloudinary");
+        console.log("File is uploaded on cloudinary",response.url   );
         return response
     } catch (error) {
         // local file hmary server pr present hai and we want k in case if that file is not uploaded on cloudinary then we have to remove it from our server

@@ -34,11 +34,15 @@ app.use(cookieParser())
 
 // routes import
 
-import userRouter from "./routes/user.routes.js"
+// humne useRouter apni mrzi ka name diya hai or wo hum sirf tab hi de skty hain jub humne export default kiya ho
+
+import  useRouter  from "./routes/user.routes.js"
 
 
 // routes declaration
 
-app.use("/users",userRouter)
+// wo donot use app.get because wo declare the routes in separate files and pehly we declare the route in the same file that's why we use middle ware named as app.use
+
+app.use("/api/v1/users",useRouter)
 
 export {app}

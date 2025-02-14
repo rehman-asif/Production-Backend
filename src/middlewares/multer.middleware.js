@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
 
     // i made this configuration for that if my file is not going to the cloudinary then i want that my file is to be stored atleast my own local so that if i want to get it then in future i am easily able to get that
     filename: function (req, file, cb) {
-        console.log("File uploaded through multer :"file);
+        console.log("File uploaded through multer :",file);
       cb(null, file.originalname)
     }
   })
