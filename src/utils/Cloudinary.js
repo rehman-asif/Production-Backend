@@ -8,21 +8,31 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET 
 });
 
-const uploadOnCloudinary=async(localFilePath)=>{
+
+const uploadOnCloudinary = async (localFilePath) => {
     try {
-        if(!localFilePath) return null
-        // upload the file on cloudinary
-        const response=await cloudinary.uploader.upload(localFilePath,{
-            resource_type:"auto"
-        })
-        console.log("Response clouninary file upload ",response.url);
-        // FILE  has been uploaded successfully
-        console.log("File is uploaded on cloudinary",response.url   );
-        return response
+        if (!localFilePath) throw new Error("Local file path is not provided.");
+
+        console.log("Uploading to Cloudinary with path:", localFilePath);
+
+        const response = await cloudinary.uploader.upload(localFilePath, {
+            resource_type: "auto",
+        });
+
+        console.log("Cloudinary Response:", response);
+
+        // File uploaded successfully
+        return response;
     } catch (error) {
-        // local file hmary server pr present hai and we want k in case if that file is not uploaded on cloudinary then we have to remove it from our server
-        fs.unlinkSync(localFilePath)
+        console.error("Error during Cloudinary upload:", error.message || error);
+        if (fs.existsSync(localFilePath)) {
+            console.log("Deleting local file after failed upload:", localFilePath);
+            fs.unlinkSync(localFilePath); // Remove local file after failure
+        }
+        return null;
     }
-}
+};
+
+
 
 export {uploadOnCloudinary}
